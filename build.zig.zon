@@ -1,0 +1,20 @@
+.{
+    .name = "wolfssl",
+    .version = "5.7.0",
+
+    .dependencies = .{
+        .winpthreads = .{
+            .url = "git+https://github.com/kassane/winpthreads-zigbuild#6cc2d18761206ad86aef250f34b71599748157bd",
+            .hash = "1220361551a5e3a3e398aeac4ec5999492111c9efb484b05b3cdf53f578482becce3",
+        },
+    },
+
+    .paths = .{
+        "LICENSING",
+        "README.md",
+        "build.zig",
+        "build.zig.zon",
+        "wolfcrypt",
+        "wolfssl",
+    },
+}

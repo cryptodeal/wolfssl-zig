@@ -441,3 +441,13 @@ debian/control
 /**/.vscode/launch.json
 /**/.vscode/ipch
 /**/sdkconfig.esp32dev
+
+# zig
+.zig-cache/
+zig-cache/
+zig-out/
+/release/
+/debug/
+/build/
+/build-*/
+/docgen_tmp/
