@@ -62,46 +62,46 @@ pub fn build(b: *std.Build) void {
     }
 
     lib.addConfigHeader(config);
+    lib.installConfigHeader(config);
     lib.addIncludePath(b.path(config.include_path));
-    lib.addIncludePath(b.path("wolfssl"));
     lib.addIncludePath(b.path("."));
     lib.addCSourceFiles(.{ .files = wolfssl_sources, .flags = cflags });
     lib.addCSourceFiles(.{ .files = wolfcrypt_sources, .flags = cflags });
-    lib.defineCMacro("TFM_TIMING_RESISTANT", null);
-    lib.defineCMacro("ECC_TIMING_RESISTANT", null);
-    lib.defineCMacro("WC_RSA_BLINDING", null);
-    lib.defineCMacro("NO_INLINE", null);
-    lib.defineCMacro("WOLFSSL_TLS13", null);
-    lib.defineCMacro("WC_RSA_PSS", null);
-    lib.defineCMacro("HAVE_TLS_EXTENSIONS", null);
-    lib.defineCMacro("HAVE_SNI", null);
-    lib.defineCMacro("HAVE_MAX_FRAGMENT", null);
-    lib.defineCMacro("HAVE_TRUNCATED_HMAC", null);
-    lib.defineCMacro("HAVE_ALPN", null);
-    lib.defineCMacro("HAVE_TRUSTED_CA", null);
-    lib.defineCMacro("HAVE_HKDF", null);
-    lib.defineCMacro("BUILD_GCM", null);
-    lib.defineCMacro("HAVE_AESCCM", null);
-    lib.defineCMacro("HAVE_SESSION_TICKET", null);
-    lib.defineCMacro("HAVE_CHACHA", null);
-    lib.defineCMacro("HAVE_POLY1305", null);
-    lib.defineCMacro("HAVE_ECC", null);
-    lib.defineCMacro("HAVE_FFDHE_2048", null);
-    lib.defineCMacro("HAVE_FFDHE_3072", null);
-    lib.defineCMacro("HAVE_FFDHE_4096", null);
-    lib.defineCMacro("HAVE_FFDHE_6144", null);
-    lib.defineCMacro("HAVE_FFDHE_8192", null);
-    lib.defineCMacro("HAVE_ONE_TIME_AUTH", null);
-    lib.defineCMacro("SESSION_INDEX", null);
-    lib.defineCMacro("SESSION_CERTS", null);
-    lib.defineCMacro("OPENSSL_EXTRA_X509", null);
-    lib.defineCMacro("OPENSSL_EXTRA_X509_SMALL", null);
+    lib.root_module.addCMacro("TFM_TIMING_RESISTANT", "");
+    lib.root_module.addCMacro("ECC_TIMING_RESISTANT", "");
+    lib.root_module.addCMacro("WC_RSA_BLINDING", "");
+    lib.root_module.addCMacro("NO_INLINE", "");
+    lib.root_module.addCMacro("WOLFSSL_TLS13", "");
+    lib.root_module.addCMacro("WC_RSA_PSS", "");
+    lib.root_module.addCMacro("HAVE_TLS_EXTENSIONS", "");
+    lib.root_module.addCMacro("HAVE_SNI", "");
+    lib.root_module.addCMacro("HAVE_MAX_FRAGMENT", "");
+    lib.root_module.addCMacro("HAVE_TRUNCATED_HMAC", "");
+    lib.root_module.addCMacro("HAVE_ALPN", "");
+    lib.root_module.addCMacro("HAVE_TRUSTED_CA", "");
+    lib.root_module.addCMacro("HAVE_HKDF", "");
+    lib.root_module.addCMacro("BUILD_GCM", "");
+    lib.root_module.addCMacro("HAVE_AESCCM", "");
+    lib.root_module.addCMacro("HAVE_SESSION_TICKET", "");
+    lib.root_module.addCMacro("HAVE_CHACHA", "");
+    lib.root_module.addCMacro("HAVE_POLY1305", "");
+    lib.root_module.addCMacro("HAVE_ECC", "");
+    lib.root_module.addCMacro("HAVE_FFDHE_2048", "");
+    lib.root_module.addCMacro("HAVE_FFDHE_3072", "");
+    lib.root_module.addCMacro("HAVE_FFDHE_4096", "");
+    lib.root_module.addCMacro("HAVE_FFDHE_6144", "");
+    lib.root_module.addCMacro("HAVE_FFDHE_8192", "");
+    lib.root_module.addCMacro("HAVE_ONE_TIME_AUTH", "");
+    lib.root_module.addCMacro("SESSION_INDEX", "");
+    lib.root_module.addCMacro("SESSION_CERTS", "");
+    lib.root_module.addCMacro("OPENSSL_EXTRA_X509", "");
+    lib.root_module.addCMacro("OPENSSL_EXTRA_X509_SMALL", "");
     if (lib.rootModuleTarget().abi == .msvc) {
-        lib.defineCMacro("SINGLE_THREADED", null);
+        lib.root_module.addCMacro("SINGLE_THREADED", "");
         lib.linkSystemLibrary("advapi32");
     } else {
-        lib.defineCMacro("HAVE_SYS_TIME_H", null);
-        lib.defineCMacro("HAVE_PTHREAD", null);
+        lib.root_module.addCMacro("HAVE_SYS_TIME_H", "");
+        lib.root_module.addCMacro("HAVE_PTHREAD", "");
     }
     if (lib.rootModuleTarget().isMinGW()) {
         const winpthreads_dep = b.dependency("winpthreads", .{
