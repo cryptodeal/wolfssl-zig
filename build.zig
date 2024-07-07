@@ -55,6 +55,11 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    lib.linkLibC();
+    switch (optimize) {
+        .Debug, .ReleaseSafe => lib.bundle_compiler_rt = true,
+        else => lib.root_module.strip = true,
+    }
 
     lib.addConfigHeader(config);
     lib.addIncludePath(b.path(config.include_path));
@@ -109,10 +114,8 @@ pub fn build(b: *std.Build) void {
         }
         lib.linkLibrary(pthreads);
     }
-    lib.linkLibC();
 
-    lib.installHeadersDirectory(b.path("wolfssl"), "", .{});
-
+    lib.installHeadersDirectory(b.path("wolfssl"), "wolfssl", .{});
     b.installArtifact(lib);
 }
 
